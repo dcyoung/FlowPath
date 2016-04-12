@@ -179,7 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   notificationColor: {r: 1, g: 0, b: 0, a: 1}
-  defaultParent: {fileID: 0}
+  defaultParent: {fileID: 1304857763}
 --- !u!114 &187149353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,8 +194,8 @@ MonoBehaviour:
   _pinchDetectorA: {fileID: 390684574}
   _pinchDetectorB: {fileID: 525701294}
   _oneHandedRotationMethod: 0
-  _twoHandedRotationMethod: 1
-  _allowScale: 1
+  _twoHandedRotationMethod: 0
+  _allowScale: 0
   _toggleGuiState: 0
   _showGUI: 0
 --- !u!1 &193323429
@@ -583,7 +583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   notificationColor: {r: 1, g: 0, b: 0, a: 1}
-  defaultParent: {fileID: 0}
+  defaultParent: {fileID: 1304857763}
 --- !u!114 &1202773574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,8 +598,8 @@ MonoBehaviour:
   _pinchDetectorA: {fileID: 390684574}
   _pinchDetectorB: {fileID: 525701294}
   _oneHandedRotationMethod: 0
-  _twoHandedRotationMethod: 1
-  _allowScale: 1
+  _twoHandedRotationMethod: 0
+  _allowScale: 0
   _toggleGuiState: 0
   _showGUI: 0
 --- !u!1 &1302576135
@@ -692,7 +692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   notificationColor: {r: 1, g: 0, b: 0, a: 1}
-  defaultParent: {fileID: 0}
+  defaultParent: {fileID: 1304857763}
 --- !u!114 &1302576141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -707,8 +707,8 @@ MonoBehaviour:
   _pinchDetectorA: {fileID: 390684574}
   _pinchDetectorB: {fileID: 525701294}
   _oneHandedRotationMethod: 0
-  _twoHandedRotationMethod: 1
-  _allowScale: 1
+  _twoHandedRotationMethod: 0
+  _allowScale: 0
   _toggleGuiState: 0
   _showGUI: 0
 --- !u!1 &1304857762
