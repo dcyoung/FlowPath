@@ -2,70 +2,18 @@
 using UnityEngine;
 using System.Collections;
 
-public class ItemPickup : MonoBehaviour
+public class ItemPickup : ItemInteraction
 {
 
-    public Color defaultColor = Color.white;
-    public Color notificationColor = Color.red;
-
     public Transform defaultParent;
-
-    private bool bIndexOverlapping = false;
-    private bool bThumbOverlapping = false;
-
-    private Transform overlappingThumbBone;
-
-
-    // keep track of the index and thumb objects, and if both are overlapping the volume... then trigger an interaction
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "indexTag")
-        {
-            bIndexOverlapping = true;
-            if (ShouldInteract())
-            {
-                BeginInteraction(other); // do something like attaching the object to the fingers
-            }
-        }
-        else if (other.gameObject.tag == "thumbTag")
-        {
-            bThumbOverlapping = true;
-            overlappingThumbBone = other.gameObject.transform;
-            if (ShouldInteract())
-            {
-                BeginInteraction(other);
-            }
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        // reset the booleans if the objects are no longer overlapping
-        if (other.gameObject.tag == "indexTag")
-        {
-            bIndexOverlapping = false;
-            if (!ShouldContinueInteraction())
-            {
-                EndInteraction();
-            }
-        }
-        else if (other.gameObject.tag == "thumbTag")
-        {
-            bThumbOverlapping = false;
-            if (!ShouldContinueInteraction())
-            {
-                EndInteraction();
-            }
-        }
-    }
-
 
     //Terminate the objects interaction. In this case...
     //  -restore the original parent hierarchy
     //  -disable the leap motion pinch utility for this object.. so it may NOT be pinch controlled
     //  -remove any visual cue 
-    private void EndInteraction()
+    protected override void EndInteraction()
     {
+        print("Ending interaction derived");
         RemoveVisualCue();
         GetComponent<Leap.Unity.PinchUtility.LeapRTS>().enabled = false;
 
@@ -88,11 +36,12 @@ public class ItemPickup : MonoBehaviour
 
 
     //Trigger the objects interaction. In this case...
-    //  -parent the object to the collider's parent
+    //  -parent the object to the thumb
     //  -enable the leap motion pinch utility for this object.. so it may be pinch controlled
     //  -display a visual cue that the object is able to be pinch controlled
-    private void BeginInteraction(Collider other)
+    protected override void BeginInteraction()
     {
+        print("Beginning interaction derived");
         DisplayVisualCue();
         transform.parent.SetParent(overlappingThumbBone.transform.parent);
         GetComponent<Leap.Unity.PinchUtility.LeapRTS>().enabled = true;
@@ -106,44 +55,6 @@ public class ItemPickup : MonoBehaviour
         DisplayVisualCue();
         transform.parent.SetParent(thumbBone.transform.parent);
         GetComponent<Leap.Unity.PinchUtility.LeapRTS>().enabled = true;
-    }
-
-    //Check that any necessary criterion for interaction have been met. 
-    //Define this for whatever behavior you want.   
-    private bool ShouldInteract()
-    {
-        //The top bone of both the index finger and thumb must both be overlapping
-        //with the trigger volume.
-        bool bCriteriaMet = (bIndexOverlapping && bThumbOverlapping);
-        return bCriteriaMet;
-    }
-
-    //Check that any necessary criterion for continuing an interaction have been met.
-    //Define this for whatever behavior you want.
-    private bool ShouldContinueInteraction()
-    {
-        //only one of the two finger (index + thumb) must be overlapping
-        bool bCriteriaMet = (bIndexOverlapping || bThumbOverlapping);
-        return bCriteriaMet;
-    }
-
-
-    //Display some visual cue to the user to indicate the item can now be pinch controlled.
-    public void DisplayVisualCue()
-    {
-        SetColor(notificationColor);
-    }
-
-    //Remove any visual cue that indicated the item could be pinch controlled.
-    private void RemoveVisualCue()
-    {
-        SetColor(defaultColor);
-    }
-
-    //Set the material color for the object
-    private void SetColor(Color col)
-    {
-        GetComponent<Renderer>().material.color = col;
     }
 
 }
