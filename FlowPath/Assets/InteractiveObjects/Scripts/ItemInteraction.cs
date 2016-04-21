@@ -13,7 +13,28 @@ public class ItemInteraction : MonoBehaviour {
 
     protected Transform overlappingThumbBone;
 
+	//are the hands interacting with any other objects right now... limit interactions to 1 at a time
+    private bool bIsFreeToInteract = true; 
 
+	
+	
+    //Subscribe to Event: at its creation, subscribe the interactable item to the event system that notifies items of other interactions
+    void OnEnable()
+    {
+        InteractionEventManager.OnInteraction += ChangeFreedom;
+    }
+    //Unsubscribe from Event: when disabling an item, unsubscribe it from the event system that notifies items of other interactions
+    void OnDisable()
+    {
+        InteractionEventManager.OnInteraction += ChangeFreedom;
+    }
+
+    //An event will report whenever an item interaction begins or ends... change the freedom to interact with this item accordingly
+    void ChangeFreedom(bool bOtherOngoingInteraction)
+    {
+        bIsFreeToInteract = !bOtherOngoingInteraction;
+    }
+	
     // keep track of the index and thumb objects, and if both are overlapping the volume... then trigger an interaction
     void OnTriggerEnter(Collider other)
     {
@@ -62,6 +83,7 @@ public class ItemInteraction : MonoBehaviour {
     protected virtual void EndInteraction()
     {
         //... Implement this in the derived class
+		InteractionEventManager.ReportInteraction(false);
     }
 
 
@@ -69,6 +91,7 @@ public class ItemInteraction : MonoBehaviour {
     protected virtual void BeginInteraction()
     {
         //... Implement this in the derived class
+		InteractionEventManager.ReportInteraction(true);
     }
 
     //Check that any necessary criterion for interaction have been met. 
@@ -86,7 +109,7 @@ public class ItemInteraction : MonoBehaviour {
     private bool ShouldContinueInteraction()
     {
         //only one of the two finger (index + thumb) must be overlapping
-        bool bCriteriaMet = (bIndexOverlapping || bThumbOverlapping);
+        bool bCriteriaMet = (bIsFreeToInteract && bIndexOverlapping || bThumbOverlapping);
         return bCriteriaMet;
     }
 
