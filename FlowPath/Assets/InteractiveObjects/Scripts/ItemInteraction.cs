@@ -13,11 +13,12 @@ public class ItemInteraction : MonoBehaviour {
 
     protected Transform overlappingThumbBone;
 
-	//are the hands interacting with any other objects right now... limit interactions to 1 at a time
+    //are the hands interacting with any other objects right now... limit interactions to 1 at a time
     private bool bIsFreeToInteract = true; 
 
-	
-	
+
+
+
     //Subscribe to Event: at its creation, subscribe the interactable item to the event system that notifies items of other interactions
     void OnEnable()
     {
@@ -34,7 +35,8 @@ public class ItemInteraction : MonoBehaviour {
     {
         bIsFreeToInteract = !bOtherOngoingInteraction;
     }
-	
+
+
     // keep track of the index and thumb objects, and if both are overlapping the volume... then trigger an interaction
     void OnTriggerEnter(Collider other)
     {
@@ -83,7 +85,7 @@ public class ItemInteraction : MonoBehaviour {
     protected virtual void EndInteraction()
     {
         //... Implement this in the derived class
-		InteractionEventManager.ReportInteraction(false);
+        InteractionEventManager.ReportInteraction(false);
     }
 
 
@@ -91,7 +93,7 @@ public class ItemInteraction : MonoBehaviour {
     protected virtual void BeginInteraction()
     {
         //... Implement this in the derived class
-		InteractionEventManager.ReportInteraction(true);
+        InteractionEventManager.ReportInteraction(true);
     }
 
     //Check that any necessary criterion for interaction have been met. 
@@ -100,16 +102,17 @@ public class ItemInteraction : MonoBehaviour {
     {
         //The top bone of both the index finger and thumb must both be overlapping
         //with the trigger volume.
-        bool bCriteriaMet = (bIndexOverlapping && bThumbOverlapping);
+        bool bCriteriaMet = (bIsFreeToInteract && bIndexOverlapping && bThumbOverlapping);
         return bCriteriaMet;
     }
+
 
     //Check that any necessary criterion for continuing an interaction have been met.
     //Define this for whatever behavior you want.
     private bool ShouldContinueInteraction()
     {
         //only one of the two finger (index + thumb) must be overlapping
-        bool bCriteriaMet = (bIsFreeToInteract && bIndexOverlapping || bThumbOverlapping);
+        bool bCriteriaMet = (bIndexOverlapping || bThumbOverlapping);
         return bCriteriaMet;
     }
 

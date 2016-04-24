@@ -13,8 +13,8 @@ public class ItemPickup : ItemInteraction
     //  -remove any visual cue 
     protected override void EndInteraction()
     {
-		base.EndInteraction();
-        print("Ending interaction derived");
+        base.EndInteraction();
+        //print("Ending interaction derived");
         RemoveVisualCue();
         GetComponent<Leap.Unity.PinchUtility.LeapRTS>().enabled = false;
 
@@ -42,8 +42,8 @@ public class ItemPickup : ItemInteraction
     //  -display a visual cue that the object is able to be pinch controlled
     protected override void BeginInteraction()
     {
-		base.BeginInteraction();
-        print("Beginning interaction derived");
+        base.BeginInteraction();
+        //print("Beginning interaction derived");
         DisplayVisualCue();
         transform.parent.SetParent(overlappingThumbBone.transform.parent);
         GetComponent<Leap.Unity.PinchUtility.LeapRTS>().enabled = true;

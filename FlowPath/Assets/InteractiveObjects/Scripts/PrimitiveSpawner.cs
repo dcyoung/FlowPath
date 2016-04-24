@@ -20,7 +20,7 @@ public class PrimitiveSpawner : ItemInteraction {
     //  -spawn a primitive and enable the Leap Motion to grab it
     protected override void EndInteraction()
     {
-		base.EndInteraction();
+        base.EndInteraction();
         RemoveVisualCue();
 
         //spawn the primitive
@@ -34,7 +34,7 @@ public class PrimitiveSpawner : ItemInteraction {
     //Trigger the objects interaction. In this case the only interaction is to show that the hand is inside the bin...
     protected override void BeginInteraction()
     {
-		base.BeginInteraction();
+        base.BeginInteraction();
         DisplayVisualCue();
     }
 
