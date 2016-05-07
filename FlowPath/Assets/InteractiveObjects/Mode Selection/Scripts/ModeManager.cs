@@ -2,26 +2,54 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class InteractionMode : MonoBehaviour {
+public enum InteractionMode
+{
+    SpectatorMode,
+    MoveObjectsMode,
+    ConnectionMode
+}
+
+
+public class ModeManager : MonoBehaviour {
     public Material lineMaterial;
     public GameObject text; // text object for panel
     private Text editText;
-    static bool connectionMode; // when true we are connecting components rather than building
+    static InteractionMode currentMode;
+    //static bool connectionMode; // when true we are connecting components rather than building
     private Vector3? _from;
     private Vector3? _to;
 
     // Use this for initialization
     void Start () {
-        connectionMode = false;
+        currentMode = InteractionMode.MoveObjectsMode;
         _from = null;
         _to = null;
         editText = text.GetComponent<Text>();
-        editText.text = connectionMode ? "Mode:\n\nWire" : "Mode:\n\nBuild";
+        updateDisplayText();
+    }
+
+    void updateDisplayText()
+    {
+        switch (currentMode)
+        {
+            case InteractionMode.ConnectionMode:
+                editText.text = "Mode:\n\nConnection";
+                break;
+            case InteractionMode.MoveObjectsMode:
+                editText.text = "Mode:\n\nMove Objects";
+                break;
+            case InteractionMode.SpectatorMode:
+                editText.text = "Mode:\n\nSpectate";
+                break;
+            default:
+                editText.text = "Default";
+                break;
+        }
     }
     
     // Update is called once per frame
     void Update () {
-        if (connectionMode) {
+        if (currentMode == InteractionMode.ConnectionMode) {
             if (Input.GetKeyDown(KeyCode.Mouse0)) {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
@@ -40,7 +68,7 @@ public class InteractionMode : MonoBehaviour {
         }
 
         if (Input.GetKeyDown(KeyCode.M)) {
-            toggleConnectionMode();
+            cycleConnectionMode();
         }
 
         if (_from != null && _to != null) {
@@ -48,9 +76,23 @@ public class InteractionMode : MonoBehaviour {
         }
     }
 
-    public void toggleConnectionMode() {
-        connectionMode = !connectionMode;
-        editText.text = connectionMode ? "Mode:\n\nWire" : "Mode:\n\nBuild";
+    public void cycleConnectionMode() {
+        switch (currentMode)
+        {
+            case InteractionMode.ConnectionMode:
+                currentMode = InteractionMode.SpectatorMode;
+                break;
+            case InteractionMode.MoveObjectsMode:
+                currentMode = InteractionMode.ConnectionMode;
+                break;
+            case InteractionMode.SpectatorMode:
+                currentMode = InteractionMode.MoveObjectsMode;
+                break;
+            default:
+                currentMode = InteractionMode.SpectatorMode;
+                break;
+        }
+        updateDisplayText();
     }
 
     private void drawLine(Vector3 start, Vector3 end) {

@@ -2128,7 +2128,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1551618573}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -2152,7 +2152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1c03579b8202dd40a10bba4ab6e1ac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionMode: {fileID: 315239697}
+  manager: {fileID: 315239697}
 --- !u!1 &1571394623
 GameObject:
   m_ObjectHideFlags: 0
@@ -3336,8 +3336,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1966886354}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.322, y: 1.065, z: -2.025}
-  m_LocalScale: {x: 0.05, y: 0.15, z: 0.05}
+  m_LocalPosition: {x: 0.0034, y: 1.0402, z: -2.0334}
+  m_LocalScale: {x: 0.0642134, y: 0.19264023, z: 0.06421341}
   m_Children:
   - {fileID: 1551618574}
   - {fileID: 17020612}

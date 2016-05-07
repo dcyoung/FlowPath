@@ -3,11 +3,12 @@ using System.Collections;
 
 public class ButtonInteraction : MonoBehaviour {
 
-    public InteractionMode interactionMode;
+    public ModeManager manager;
 
-    void onTriggerEnter(Collider other) {
+    
+    void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "palmTag") {
-            interactionMode.toggleConnectionMode();
+            manager.cycleConnectionMode();
         }
     }
 }
