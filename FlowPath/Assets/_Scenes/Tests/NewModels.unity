@@ -642,7 +642,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 10266556, guid: 55cf6665914e4c440b34ef7d6c6e9e2c, type: 2}
       propertyPath: m_Text
-      value: Spheres
+      value: NOT Gate
       objectReference: {fileID: 0}
     - target: {fileID: 11470362, guid: 55cf6665914e4c440b34ef7d6c6e9e2c, type: 2}
       propertyPath: spawnOrientation.y
@@ -781,7 +781,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 10266556, guid: 55cf6665914e4c440b34ef7d6c6e9e2c, type: 2}
       propertyPath: m_Text
-      value: Cubes
+      value: AND Gate
       objectReference: {fileID: 0}
     - target: {fileID: 11470362, guid: 55cf6665914e4c440b34ef7d6c6e9e2c, type: 2}
       propertyPath: spawnOrientation.x
@@ -2113,7 +2113,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 10266556, guid: 55cf6665914e4c440b34ef7d6c6e9e2c, type: 2}
       propertyPath: m_Text
-      value: Cylinders
+      value: OR Gate
       objectReference: {fileID: 0}
     - target: {fileID: 11470362, guid: 55cf6665914e4c440b34ef7d6c6e9e2c, type: 2}
       propertyPath: spawnOrientation.y
