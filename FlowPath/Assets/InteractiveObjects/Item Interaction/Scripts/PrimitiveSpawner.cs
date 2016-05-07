@@ -6,6 +6,10 @@ public class PrimitiveSpawner : ItemInteraction {
     //The type of primitive to spawn
     public Transform primitiveToSpawn;
     public Quaternion spawnOrientation = Quaternion.identity;
+
+    //A flag, in case the hand entered the volume but interaction was not allowed to begin (for example, if the InteractionMode was not conducive)
+    private bool bInteractionBegun = false;
+
     // Use this for initialization
     void Start ()
     {
@@ -20,14 +24,23 @@ public class PrimitiveSpawner : ItemInteraction {
     //  -spawn a primitive and enable the Leap Motion to grab it
     protected override void EndInteraction()
     {
-        base.EndInteraction();
-        RemoveVisualCue();
+        //Make sure that an interaction actually did begin... its possible that the hand moved into vol, 
+        //but the current InteractionMode doesn't permit spawning 
+        if (bInteractionBegun)
+        {
+            base.EndInteraction();
 
-        //spawn the primitive
-        Transform primitiveClone = (Transform)Instantiate(primitiveToSpawn, Vector3.zero, spawnOrientation);
+            RemoveVisualCue();
 
-        //Kick off the interaction between the primitive and the hand
-        primitiveClone.GetComponent<ItemPickup>().BeginInteractionFromExternal(overlappingThumbBone);
+            //spawn the primitive
+            Transform primitiveClone = (Transform)Instantiate(primitiveToSpawn, Vector3.zero, spawnOrientation);
+
+            //Kick off the interaction between the primitive and the hand
+            primitiveClone.GetComponent<ItemPickup>().BeginInteractionFromExternal(overlappingThumbBone);
+
+            bInteractionBegun = false;
+        }
+        
     }
 
 
@@ -35,6 +48,7 @@ public class PrimitiveSpawner : ItemInteraction {
     protected override void BeginInteraction()
     {
         base.BeginInteraction();
+        bInteractionBegun = true;
         DisplayVisualCue();
     }
 

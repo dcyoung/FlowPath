@@ -27,7 +27,7 @@ public class ItemInteraction : MonoBehaviour {
     //Unsubscribe from Event: when disabling an item, unsubscribe it from the event system that notifies items of other interactions
     void OnDisable()
     {
-        InteractionEventManager.OnInteraction += ChangeFreedom;
+        InteractionEventManager.OnInteraction -= ChangeFreedom;
     }
 
     //An event will report whenever an item interaction begins or ends... change the freedom to interact with this item accordingly
@@ -100,9 +100,13 @@ public class ItemInteraction : MonoBehaviour {
     //Define this for whatever behavior you want.   
     private bool ShouldInteract()
     {
-        //The top bone of both the index finger and thumb must both be overlapping
-        //with the trigger volume.
-        bool bCriteriaMet = (bIsFreeToInteract && bIndexOverlapping && bThumbOverlapping);
+        bool bCriteriaMet = false;
+        if(ModeManager.currentMode == InteractionMode.MoveObjectsMode)
+        {
+            //The top bone of both the index finger and thumb must both be overlapping
+            //with the trigger volume.
+            bCriteriaMet = (bIsFreeToInteract && bIndexOverlapping && bThumbOverlapping);
+        }
         return bCriteriaMet;
     }
 
