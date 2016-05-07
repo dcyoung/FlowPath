@@ -5,7 +5,7 @@ public class PrimitiveSpawner : ItemInteraction {
     
     //The type of primitive to spawn
     public Transform primitiveToSpawn;
-
+    public Quaternion spawnOrientation = Quaternion.identity;
     // Use this for initialization
     void Start ()
     {
@@ -24,7 +24,7 @@ public class PrimitiveSpawner : ItemInteraction {
         RemoveVisualCue();
 
         //spawn the primitive
-        Transform primitiveClone = (Transform)Instantiate(primitiveToSpawn, Vector3.zero, Quaternion.identity);
+        Transform primitiveClone = (Transform)Instantiate(primitiveToSpawn, Vector3.zero, spawnOrientation);
 
         //Kick off the interaction between the primitive and the hand
         primitiveClone.GetComponent<ItemPickup>().BeginInteractionFromExternal(overlappingThumbBone);

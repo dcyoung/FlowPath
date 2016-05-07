@@ -1,54 +1,15 @@
 fileFormatVersion: 2
-guid: ebd34036b0c9a9941be8ba775409a077
-timeCreated: 1462495983
+guid: 411ed8a38172313419c40d32d3f02c16
+timeCreated: 1462583048
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: and
-    100002: and_io
-    100004: Cylinder
-    100006: //RootNode
-    100008: not
-    100010: not_io
-    100012: or
-    100014: or_curve
-    100016: or_io
-    400000: and
-    400002: and_io
-    400004: Cylinder
-    400006: //RootNode
-    400008: not
-    400010: not_io
-    400012: or
-    400014: or_curve
-    400016: or_io
-    2300000: and
-    2300002: and_io
-    2300004: Cylinder
-    2300006: not
-    2300008: not_io
-    2300010: or
-    2300012: or_curve
-    2300014: or_io
-    3300000: and
-    3300002: and_io
-    3300004: Cylinder
-    3300006: not
-    3300008: not_io
-    3300010: or
-    3300012: or_curve
-    3300014: or_io
-    4300000: or_io
-    4300002: Cylinder
-    4300004: or
-    4300006: or_curve
-    4300008: not_io
-    4300010: not
-    4300012: and_io
-    4300014: and
-    7400000: Default Take
-    9500000: //RootNode
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: not
   materials:
     importMaterials: 1
     materialName: 0
@@ -107,7 +68,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
