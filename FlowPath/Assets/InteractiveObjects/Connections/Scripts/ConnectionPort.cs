@@ -52,7 +52,7 @@ public class ConnectionPort : MonoBehaviour {
     {
         if(newMode == InteractionMode.ConnectionMode)
         {
-            setActivePort(true);
+            setActivePort(portType == PortType.Output);
         }
         else
         {
@@ -66,13 +66,15 @@ public class ConnectionPort : MonoBehaviour {
         switch (newState)
         {
             case ProspectiveConnectionState.Latent:
-                setActivePort(true);
-                break;
-            case ProspectiveConnectionState.Initiated:
-                //disable the port if its an input... because an input has already been specified for the prospective connection
+                //disable the port if its an input... because an output must first be specified for the prospective connection
                 setActivePort(portType == PortType.Output);
                 break;
+            case ProspectiveConnectionState.Initiated:
+                //disable the port if its an output... because an output has already been specified for the prospective connection
+                setActivePort(portType == PortType.Input);
+                break;
             case ProspectiveConnectionState.Completed:
+                //the prospective connection has been formed, with both a specified output and input port. No need to select any more ports.
                 setActivePort(false);
                 break;
             default:
@@ -95,11 +97,6 @@ public class ConnectionPort : MonoBehaviour {
             }
         }
     }
-
-
-
-
-
 
 
 }

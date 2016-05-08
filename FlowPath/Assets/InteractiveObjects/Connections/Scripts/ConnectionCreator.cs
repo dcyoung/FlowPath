@@ -4,20 +4,32 @@ using System.Collections;
 public class ConnectionCreator : MonoBehaviour {
 
     public Material lineMaterial;
-    private Vector3? _from;
-    private Vector3? _to;
+    //private Vector3? _from;
+    //private Vector3? _to;
+    private GameObject _from;
+    private GameObject _to;
+    
+    //Subscribe to Event: at its creation, subscribe to receive updates from the prospectiveconnection manager
+    void OnEnable()
+    {
+        ProspectiveConnectionManager.OnConnectingStateChange += UpdateConnectionProgress;
+    }
+    //Unsubscribe from Event: when disabling this item, unsubscribe from the prospectiveconnection manager
+    void OnDisable()
+    {
+        ProspectiveConnectionManager.OnConnectingStateChange -= UpdateConnectionProgress;
+    }
 
     // Use this for initialization
-
     void Start()
     {
         _from = null;
         _to = null;
     }
 
-
+/*
     // Update is called once per frame
-    void Update () {
+    void Update2 () {
         if (ModeManager.currentMode == InteractionMode.ConnectionMode) {
             if (Input.GetKeyDown(KeyCode.Mouse0)) {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -39,14 +51,54 @@ public class ConnectionCreator : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.M)) {
             ModeManager.cycleMode();
         }
+        
 
         if (_from != null && _to != null) {
-            drawLine((Vector3) _from, (Vector3) _to);
+            //draw line
         }
     }
-    
+*/
 
+    private void UpdateConnectionProgress(ProspectiveConnectionState newState)
+    {
+        switch (newState)
+        {
+            case ProspectiveConnectionState.Latent:
+                if( _from != null){ RemovePortSelectionVisual( _from ); }
+                if( _to   != null){ RemovePortSelectionVisual( _to );   }
+                _from = null;
+                _to = null;
+                break;
+            case ProspectiveConnectionState.Initiated:
+                _from = ProspectiveConnectionManager.GetSpecifiedOutputPort();
+                //draw the visual representation of the selected port
+                ShowPortSelectionVisual(_from);
+                break;
+            case ProspectiveConnectionState.Completed:
+                _from = ProspectiveConnectionManager.GetSpecifiedOutputPort();
+                _to = ProspectiveConnectionManager.GetSpecifiedInputPort();
+                //draw the visual representations of both selected ports
+                ShowPortSelectionVisual(_from);
+                ShowPortSelectionVisual(_to);
+                break;
+            default:
+                break;
+        }
+    }
 
+    //DRAW SOME VISUAL REPRESENTATION OF THE PORT
+    private void ShowPortSelectionVisual(GameObject port)
+    {
+        ///FIXME:
+    }
+
+    //Remove any visual representation of the port
+    private void RemovePortSelectionVisual(GameObject port)
+    {
+        ///FIXME:
+    }
+
+    //Old draw line method... will not work with VR, but good for debugging.
     private void drawLine(Vector3 start, Vector3 end)
     {
         GameObject newChild = new GameObject();

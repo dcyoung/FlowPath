@@ -5,7 +5,7 @@ using System.Collections;
 /// <summary>
 /// Attach this to an object with a text component to update that text component with text for the current interaction mode.
 /// </summary>
-public class TextUpdate : MonoBehaviour {
+public class ModeDisplayUpdate : MonoBehaviour {
 
     //The actual text component to be updated. Make sure the parent of this script has a text component.
     private Text displayText;

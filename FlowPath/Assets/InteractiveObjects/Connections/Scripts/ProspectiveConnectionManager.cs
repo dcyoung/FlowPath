@@ -17,9 +17,10 @@ public static class ProspectiveConnectionManager{
     public delegate void StateChangeAlert(ProspectiveConnectionState newState);
     public static event StateChangeAlert OnConnectingStateChange;
 
-    private static GameObject inputPort;
-    private static GameObject outputPort;
+    private static GameObject inputPort = null;
+    private static GameObject outputPort = null;
 
+    //Callable method that will fire the event, alerting all subscribed listeners that the state has changed
     public static void ReportStateChange()
     {
         if (OnConnectingStateChange != null)
@@ -30,11 +31,11 @@ public static class ProspectiveConnectionManager{
 
     public static void SpecifyInputPort(GameObject specifiedPort)
     {
-        if(currentConnectionState == ProspectiveConnectionState.Latent)
+        if (currentConnectionState == ProspectiveConnectionState.Initiated)
         {
             MonoBehaviour.print("Registered an input port");
             inputPort = specifiedPort;
-            currentConnectionState = ProspectiveConnectionState.Initiated;
+            currentConnectionState = ProspectiveConnectionState.Completed;
             ReportStateChange();
         }
         else
@@ -45,11 +46,12 @@ public static class ProspectiveConnectionManager{
 
     public static void SpecifyOutputPort(GameObject specifiedPort)
     {
-        if (currentConnectionState == ProspectiveConnectionState.Initiated)
+
+        if (currentConnectionState == ProspectiveConnectionState.Latent)
         {
             MonoBehaviour.print("Registered an output port");
             outputPort = specifiedPort;
-            currentConnectionState = ProspectiveConnectionState.Completed;
+            currentConnectionState = ProspectiveConnectionState.Initiated;
             ReportStateChange();
         }
         else
@@ -58,5 +60,13 @@ public static class ProspectiveConnectionManager{
         }
     }
 
+    public static GameObject GetSpecifiedInputPort()
+    {
+        return inputPort;
+    }
 
+    public static GameObject GetSpecifiedOutputPort()
+    {
+        return outputPort;
+    }
 }
