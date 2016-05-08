@@ -14,6 +14,7 @@ public class Circuit
     private Stack<Node> reversePost;
     private Dictionary<Node, bool> marked;
 
+
     /**
      * Constructor
      */
@@ -245,4 +246,9 @@ public class Circuit
         }
     }
 
+
+    public List<Node> getNodes()
+    {
+        return nodes;
+    }
 }
