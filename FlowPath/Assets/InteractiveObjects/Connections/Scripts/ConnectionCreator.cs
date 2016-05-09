@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// This class currently contains a lot of redudant code that better exists in the static ProspectiveConnectionManager
+/// This class remains untouched for future reference, as it may be useful to have a dedicated class to 
+/// handle rendering of connections etc.  that will be event driven in this way.
+/// </summary>
 public class ConnectionCreator : MonoBehaviour {
 
     public Material lineMaterial;
@@ -78,6 +83,7 @@ public class ConnectionCreator : MonoBehaviour {
                 _from = ProspectiveConnectionManager.GetSpecifiedOutputPort();
                 _to = ProspectiveConnectionManager.GetSpecifiedInputPort();
                 //draw the visual representations of both selected ports
+                print("Connection Completed");
                 ShowPortSelectionVisual(_from);
                 ShowPortSelectionVisual(_to);
                 break;
@@ -90,6 +96,7 @@ public class ConnectionCreator : MonoBehaviour {
     private void ShowPortSelectionVisual(GameObject port)
     {
         ///FIXME:
+        print("Showing port selection for: " + port.transform.parent.GetComponent<NodeComponent>().nodeType);
     }
 
     //Remove any visual representation of the port

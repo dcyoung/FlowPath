@@ -42,12 +42,12 @@ public class NodeComponent : MonoBehaviour {
         return node;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            print(node.GetHashCode() + ": " + node.isActive());
-        }
-    }
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Space))
+    //    {
+    //        print(node.GetHashCode() + ": " + node.isActive());
+    //    }
+    //}
 
 }

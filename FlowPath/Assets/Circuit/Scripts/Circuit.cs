@@ -6,9 +6,11 @@ public class Circuit
 {
     private List<Node> nodes; //all nodes that make up the directed graph (circuit)
 
-    //adjacency lists to represent the edges of the graph 
-    private Dictionary<Node, List<Node>> dependencies;  // mapping dependencies (these aren't the direction of the directed edges)
-    private Dictionary<Node, List<Node>> dependents;  // mapping edges for dependents
+    //adjacency list to represent the edges of the graph 
+    private Dictionary<Node, List<Node>> dependents;  // mapping edges for dependents (this is the direction of edges)
+    
+    // mapping dependencies (NOT the direction of the directed edges)... just useful for quickly finding parents
+    private Dictionary<Node, List<Node>> dependencies;  
 
 
     private Stack<Node> reversePost;
@@ -251,4 +253,22 @@ public class Circuit
     {
         return nodes;
     }
+
+    public void printCircuitSummary()
+    {
+        MonoBehaviour.print("Circuit Summary:");
+        MonoBehaviour.print(nodes.Count + " nodes in total...");
+
+        foreach(Node n in nodes)
+        {
+            MonoBehaviour.print("     Node: " + n.toString());
+
+            foreach(Node child in dependents[n])
+            {
+                MonoBehaviour.print("          Child: " + child.toString());
+            }
+        }
+        
+    }
+
 }

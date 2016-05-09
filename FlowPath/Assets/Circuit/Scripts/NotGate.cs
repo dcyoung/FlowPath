@@ -20,7 +20,7 @@ public class NotGate : LogicGate
 
     public override string toString()
     {
-        return "Default NandGate.toString()";
+        return "Default NotGate.toString()";
     }
 }
 

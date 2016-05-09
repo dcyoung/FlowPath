@@ -31,10 +31,19 @@ public static class CircuitManager{
         circuit.addNode(newNode);
     }
 
+    public static void RemoveNode(Node toRemove)
+    {
+        circuit.removeNode(toRemove);
+    }
+
     public static void AddEdge(Node parent, Node child)
     {
         circuit.addEdge(parent, child);
     }
-    
+
+    public static void PrintCircuitSummary()
+    {
+        circuit.printCircuitSummary();
+    }
 
 }
