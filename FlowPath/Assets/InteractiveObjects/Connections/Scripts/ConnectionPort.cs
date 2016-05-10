@@ -42,6 +42,8 @@ public class ConnectionPort : MonoBehaviour {
     //Change the active state of the port
     private void setActivePort(bool bIsActive)
     {
+        HidePortSelection();
+
         trigger.enabled = bIsActive;
         portMeshRenderer.enabled = bIsActive;
     }
@@ -70,12 +72,22 @@ public class ConnectionPort : MonoBehaviour {
                 setActivePort(portType == PortType.Output);
                 break;
             case ProspectiveConnectionState.Initiated:
-                //disable the port if its an output... because an output has already been specified for the prospective connection
+                //disable the port if its an output... because an output (_from) has already been specified for the prospective connection
                 setActivePort(portType == PortType.Input);
+                
+                //If this port happens to be the _from port that was already selected in this intermediate prospective connection, Display a visual cue that is has been selected.
+                if (transform.gameObject == ProspectiveConnectionManager.GetSpecifiedOutputPort())
+                {
+                    DisplayPortSelection();
+                }
                 break;
             case ProspectiveConnectionState.Completed:
                 //the prospective connection has been formed, with both a specified output and input port. No need to select any more ports.
                 setActivePort(false);
+                if (transform.gameObject == ProspectiveConnectionManager.GetSpecifiedOutputPort() || transform.gameObject == ProspectiveConnectionManager.GetSpecifiedInputPort())
+                {
+                    DisplayPortSelection();
+                }
                 break;
             default:
                 break;
@@ -83,6 +95,7 @@ public class ConnectionPort : MonoBehaviour {
     }
 
     
+    //Handle when the user presses the port with their index finger
     void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "indexTag")
@@ -98,5 +111,18 @@ public class ConnectionPort : MonoBehaviour {
         }
     }
 
+    //Display a visual cue that the port was selected. This will likley be used for showing which output (from) port was already selected when a connection
+    //is in the intermediate stage of being built, where the _from port has been selected but the _to port has not yet been selected.
+    public void DisplayPortSelection()
+    {
+        portMeshRenderer.enabled = true;
+        portMeshRenderer.material.color = Color.green;
+    }
+
+    //Hide the visual cue that the port was selected. 
+    public void HidePortSelection()
+    {
+        portMeshRenderer.material.color = Color.white;
+    }
 
 }

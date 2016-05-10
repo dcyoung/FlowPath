@@ -21,6 +21,7 @@ public static class ProspectiveConnectionManager{
     public delegate void StateChangeAlert(ProspectiveConnectionState newState);
     public static event StateChangeAlert OnConnectingStateChange;
 
+
     private static GameObject outputPort_from = null;
     private static GameObject inputPort_to = null;
 
@@ -34,16 +35,16 @@ public static class ProspectiveConnectionManager{
         }
     }
 
-
+    //A user attempted to specify an output port (most likely by tapping it with their index finger)... check that
+    //the conditions are alright for adding the _from port... and handle it if so. 
     public static void SpecifyOutputPort(GameObject specifiedPort)
     {
 
         if (currentConnectionState == ProspectiveConnectionState.Latent)
         {
-            MonoBehaviour.print("Registered an output port");
+            //MonoBehaviour.print("Registered an output port");
             outputPort_from = specifiedPort;
             currentConnectionState = ProspectiveConnectionState.Initiated;
-            UpdateConnectionProgress();
             ReportStateChange();
         }
         else
@@ -55,10 +56,12 @@ public static class ProspectiveConnectionManager{
     {
         if (currentConnectionState == ProspectiveConnectionState.Initiated)
         {
-            MonoBehaviour.print("Registered an input port");
+            //MonoBehaviour.print("Registered an input port");
             inputPort_to = specifiedPort;
             currentConnectionState = ProspectiveConnectionState.Completed;
-            UpdateConnectionProgress();
+            
+            CompleteConnectionProgress(); 
+
             ReportStateChange();
         }
         else
@@ -77,6 +80,7 @@ public static class ProspectiveConnectionManager{
         return outputPort_from;
     }
 
+    /*
     private static void UpdateConnectionProgress()
     {
         switch (currentConnectionState)
@@ -86,7 +90,7 @@ public static class ProspectiveConnectionManager{
                 break;
             case ProspectiveConnectionState.Initiated:
                 //draw the visual representation of the selected port
-                ShowPortSelectionVisual(outputPort_from);
+                //ShowPortSelectionVisual(outputPort_from);
                 break;
             case ProspectiveConnectionState.Completed:
                 //draw the visual representations of both selected ports
@@ -96,17 +100,17 @@ public static class ProspectiveConnectionManager{
                 break;
         }
     }
+    */
+
 
     private static void ResetConnectionProgress()
     {
         if (outputPort_from != null)
         {
-            RemovePortSelectionVisual(outputPort_from);
             outputPort_from = null;
         }
         if (inputPort_to != null)
         {
-            RemovePortSelectionVisual(inputPort_to);
             inputPort_to = null;
         }
 
@@ -120,27 +124,15 @@ public static class ProspectiveConnectionManager{
     private static void CompleteConnectionProgress()
     {
         MonoBehaviour.print("Connection Completed");
-        ShowPortSelectionVisual(outputPort_from);
-        ShowPortSelectionVisual(inputPort_to);
 
         Node n_from = outputPort_from.transform.parent.GetComponent<NodeComponent>().GetNode();
         Node n_to = inputPort_to.transform.parent.GetComponent<NodeComponent>().GetNode();
         CircuitManager.AddEdge(n_from, n_to);
-        CircuitManager.PrintCircuitSummary();
+
+
+        //CircuitManager.PrintCircuitSummary();
 
         ResetConnectionProgress();
     }
 
-    //DRAW SOME VISUAL REPRESENTATION OF THE PORT
-    private static void ShowPortSelectionVisual(GameObject port)
-    {
-        ///FIXME:
-        MonoBehaviour.print("Showing port selection for: " + port.transform.parent.GetComponent<NodeComponent>().nodeType);
-    }
-
-    //Remove any visual representation of the port
-    private static void RemovePortSelectionVisual(GameObject port)
-    {
-        ///FIXME:
-    }
 }

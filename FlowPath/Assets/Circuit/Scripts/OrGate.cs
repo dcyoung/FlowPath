@@ -14,6 +14,16 @@ public class OrGate : LogicGate
     public override bool processInputs(Circuit circuit)
     {
         List<Node> parents = circuit.getParentsOfNode(this);
+        if (parents == null || parents.Count != 2)
+        {
+            if (parents.Count == 1)
+            {
+                //This is an OR node, so even if its missing a parent, it should be on if the one parent is on
+                return parents[0].isActive();
+            }
+            return false;
+        }
+
         Node parent1 = parents[0];
         Node parent2 = parents[1];
 

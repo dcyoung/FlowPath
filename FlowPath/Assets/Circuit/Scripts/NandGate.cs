@@ -14,6 +14,7 @@ public class NandGate : LogicGate
     public override bool processInputs(Circuit circuit)
     {
         List<Node> parents = circuit.getParentsOfNode(this);
+        if (parents == null || parents.Count != 2) { return false; }
         Node parent1 = parents[0];
         Node parent2 = parents[1];
 

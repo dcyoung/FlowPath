@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public static class CircuitManager{
 
-    public delegate void UpdatedCircuitAlert(List<Node> updatedNodes);
+    public delegate void UpdatedCircuitAlert();
     public static event UpdatedCircuitAlert OnCircuitUpdate;
 
 
@@ -16,11 +16,11 @@ public static class CircuitManager{
     {
         if (OnCircuitUpdate != null)
         {
-            OnCircuitUpdate(circuit.getNodes());
+            OnCircuitUpdate();
         }
     }
 
-    private static void UpdateCircuit()
+    public static void UpdateCircuit()
     {
         circuit.solve();
         ReportUpdatedCircuit();
@@ -29,16 +29,19 @@ public static class CircuitManager{
     public static void AddNode(Node newNode)
     {
         circuit.addNode(newNode);
+        UpdateCircuit();
     }
 
     public static void RemoveNode(Node toRemove)
     {
         circuit.removeNode(toRemove);
+        UpdateCircuit();
     }
 
     public static void AddEdge(Node parent, Node child)
     {
         circuit.addEdge(parent, child);
+        UpdateCircuit();
     }
 
     public static void PrintCircuitSummary()
