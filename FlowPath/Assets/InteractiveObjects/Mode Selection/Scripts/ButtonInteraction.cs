@@ -17,11 +17,12 @@ public class ButtonInteraction : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.M)) {
 			ModeManager.cycleMode();
 
-			GameObject startCube = GameObject.Find ("Cube1");
-			//GameObject endCube = GameObject.Find ("Cube2");
-
-			startCube.AddComponent<Rope_Tube> ();
-			//startCube.GetComponent<Rope_Tube> ().target = endCube.transform;
+//			GameObject startCube = GameObject.Find ("Cube3");
+//			GameObject endCube = GameObject.Find ("Cube4");
+//
+//			startCube.AddComponent<Rope_Tube> ();
+//			startCube.GetComponent<Rope_Tube> ().target = endCube.transform;
+//			endCube.transform.parent = startCube.transform;
 		}
 	}
 }

@@ -25,6 +25,8 @@ public static class ProspectiveConnectionManager{
     private static GameObject outputPort_from = null;
     private static GameObject inputPort_to = null;
 
+	public static GameObject connection_target = null;
+	public static Material rope_material_default = null;
     
     //Callable method that will fire the event, alerting all subscribed listeners that the state has changed
     public static void ReportStateChange()
@@ -131,11 +133,24 @@ public static class ProspectiveConnectionManager{
 
 
         //CircuitManager.PrintCircuitSummary();
-//		GameObject startCube = GameObject.Find ("Cube1");
-//		GameObject endCube = GameObject.Find ("Cube2");
-//
-//		startCube.AddComponent<Rope_Tube> ();
-//		startCube.GetComponent<Rope_Tube> ().target = endCube.transform;
+//		GameObject startCube = GameObject.Find ("Ref_AND_Gate (Rope Test 1)");
+//		GameObject endCube = GameObject.Find ("Ref_AND_Gate (Rope Test 2)");
+		Material rope_mat = Resources.Load("lambert1", typeof(Material)) as Material;
+		rope_material_default = rope_mat;
+
+		GameObject startCube = outputPort_from;
+
+		//Rope crazy
+		GameObject endCube = inputPort_to;
+
+		//Rope not crazy
+		//GameObject endCube = GameObject.Find("Cube4");
+		connection_target = endCube;
+
+		endCube.transform.parent = startCube.transform;
+
+		startCube.AddComponent<Rope_Tube> ();
+		//startCube.GetComponent<Rope_Tube> ().target = endCube.transform;
 
         ResetConnectionProgress();
     }

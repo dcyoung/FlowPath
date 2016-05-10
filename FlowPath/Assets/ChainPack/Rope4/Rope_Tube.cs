@@ -27,10 +27,14 @@ class Rope_Tube : MonoBehaviour
 {
 
 	public Transform target;
-	public Material material;
-	public float ropeWidth = 0.5f;
-	public float resolution = 0.5f;
-	public float ropeDrag = 0.1f;
+	public Material material = ProspectiveConnectionManager.rope_material_default;
+//	public float ropeWidth = 0.5f;
+//	public float resolution = 0.5f;
+//	public float ropeDrag = 0.1f;
+//	public float ropeMass = 0.5f;
+	public float ropeWidth = 0.02f;
+	public float resolution = 4.2f;
+	public float ropeDrag = 100.1f;
 	public float ropeMass = 0.5f;
 	public int radialSegments = 6;
 	public bool startRestrained = true;
@@ -71,7 +75,7 @@ class Rope_Tube : MonoBehaviour
 	}
 
 	void Awake()
-	{
+	{target = ProspectiveConnectionManager.connection_target.transform;
 		if(target)
 		{
 			BuildRope();
