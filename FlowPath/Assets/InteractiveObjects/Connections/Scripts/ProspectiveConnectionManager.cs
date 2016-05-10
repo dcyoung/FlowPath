@@ -131,6 +131,11 @@ public static class ProspectiveConnectionManager{
 
 
         //CircuitManager.PrintCircuitSummary();
+//		GameObject startCube = GameObject.Find ("Cube1");
+//		GameObject endCube = GameObject.Find ("Cube2");
+//
+//		startCube.AddComponent<Rope_Tube> ();
+//		startCube.GetComponent<Rope_Tube> ().target = endCube.transform;
 
         ResetConnectionProgress();
     }
