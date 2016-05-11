@@ -1,33 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 
-struct RopeStruct
-{
-    public GameObject start_Point;
-    public GameObject end_Point;
-    public GameObject start_Port;
-    public GameObject end_Port;
-    public Node parentNode;
-    public bool bCurrentlyPulsing;
-    public bool bNeedsBuilding;
-
-    //add any necessary stuff for the 
-}
+//struct RopeStruct
+//{
+//    public GameObject start_Point;
+//    public GameObject end_Point;
+//    public GameObject start_Port;
+//    public GameObject end_Port;
+//    public Node parentNode;
+//    public bool bCurrentlyPulsing;
+//    public bool bNeedsBuilding;
+//
+//    //add any necessary stuff for the 
+//
+//
+//}
 public class RopeManager : MonoBehaviour
 {
 
-    private List<RopeStruct> existingRopes;
+    private List<RopeClass> existingRopes;
     public Transform globalParent; //The global parent for all the created end pts to be children of
     public Material ropeMat;
     public Material ropeMat_active;
     void Start()
     {
-        existingRopes = new List<RopeStruct>();
+		existingRopes = new List<RopeClass>();
         ProspectiveConnectionManager.SetRopeManager(transform);
     }
 
@@ -38,48 +37,51 @@ public class RopeManager : MonoBehaviour
         {
             // iterate through the ropes and update each
             //UpdateSingleRope(existingRopes[i]);
+			UpdateSingleRope(i);
         }
     }
 
-    private void UpdateSingleRope(RopeStruct rope)
+	private void UpdateSingleRope(int i)
     {
         //update the positions of the start and end points using the actual port positions
-        rope.start_Point.transform.position = rope.start_Port.transform.position;
-        rope.end_Point.transform.position = rope.end_Port.transform.position;
+		existingRopes[i].start_Point.transform.position = existingRopes[i].start_Port.transform.position;
+		existingRopes[i].end_Point.transform.position = existingRopes[i].end_Port.transform.position;
 
 
         //check if this rope should be flowing
-        if (rope.parentNode.isActive())
+		if (existingRopes[i].parentNode.isActive())
         {
-            if (!rope.bCurrentlyPulsing)
+			if (!existingRopes[i].bCurrentlyPulsing)
             {
-                rope.bCurrentlyPulsing = true;
+				//existingRopes[i].bCurrentlyPulsing = true;
+				bool x = existingRopes[i].bCurrentlyPulsing;
+				existingRopes[i].bCurrentlyPulsing = x;
                 //make the rope start pulsing... change its material to a pulsing material
-                rope.start_Point.GetComponent<Rope_Tube>().material = ropeMat_active;
+				existingRopes[i].start_Point.GetComponent<Rope_Tube>().material = ropeMat_active;
 
             }
         }
         else
         {
-            if (rope.bCurrentlyPulsing)
+			if (existingRopes[i].bCurrentlyPulsing)
             {
-                rope.bCurrentlyPulsing = false;
+				existingRopes[i].bCurrentlyPulsing = false;
                 //make the rope stop pulsing... change its material from a pulsing material to a normal material
-                rope.start_Point.GetComponent<Rope_Tube>().material = ropeMat;
+				existingRopes[i].start_Point.GetComponent<Rope_Tube>().material = ropeMat;
             }
         }
 
-        if (rope.bNeedsBuilding)
+		if (existingRopes[i].bNeedsBuilding)
         {
-            rope.start_Point.GetComponent<Rope_Tube>().BuildRope();
-            rope.bNeedsBuilding = false;
+			existingRopes[i].start_Point.GetComponent<Rope_Tube>().BuildRope();
+			existingRopes[i].bNeedsBuilding = false;
         }
     }
 
     public void CreateRope(GameObject start_Port, GameObject end_Port)
     {
         //create a new struct for this rope
-        RopeStruct newRope = new RopeStruct();
+		RopeClass newRope = new RopeClass();
         //specify the actual ports that makeup this connection
         newRope.start_Port = start_Port;
         newRope.end_Port = end_Port;
@@ -110,7 +112,7 @@ public class RopeManager : MonoBehaviour
 
         newRope.bCurrentlyPulsing = newRope.parentNode.isActive();
         newRope.bNeedsBuilding = true;
-        UpdateSingleRope(newRope);
+		UpdateSingleRope(existingRopes.Count-1);
 
         //add the new ropes to the list of existing ropes
         existingRopes.Add(newRope);
