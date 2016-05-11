@@ -75,7 +75,7 @@ class Rope_Tube : MonoBehaviour
 	}
 
 	void Awake()
-	{//target = ProspectiveConnectionManager.connection_target.transform;
+	{target = ProspectiveConnectionManager.connection_target.transform;
 		if(target)
 		{
 			BuildRope();

@@ -147,8 +147,9 @@ public static class ProspectiveConnectionManager{
 		//Rope not crazy
 		//GameObject endCube = GameObject.Find("Cube4");
 
-		//startCube = startCube.transform.parent.gameObject;
-		//endCube = endCube.transform.parent.gameObject;
+		//Comment the next two lines for endpoints to be not the cubes, but the input/output spheres
+		startCube = startCube.transform.parent.gameObject;
+		endCube = endCube.transform.parent.gameObject;
 
 		connection_target = endCube;
 
