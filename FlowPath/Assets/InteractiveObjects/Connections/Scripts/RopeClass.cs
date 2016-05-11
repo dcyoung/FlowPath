@@ -11,6 +11,7 @@ public class RopeClass {
 	public bool bCurrentlyPulsing;
 	public bool bNeedsBuilding;
 
+    //Constructor
 	public RopeClass() {
 
 	}

@@ -51,6 +51,7 @@ public class TubeRenderer : MonoBehaviour
 	private bool colliderExists = false;
 	private bool usingBumpmap = false;
 
+
 	public void Reset()
 	{
 		vertices = new TubeVertex[2];
@@ -69,6 +70,8 @@ public class TubeRenderer : MonoBehaviour
 			if(material.GetTexture("_BumpMap")) usingBumpmap = true;
 		}
 	}
+
+
 
 	void LateUpdate ()
 	{

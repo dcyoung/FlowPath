@@ -13,7 +13,7 @@ public class ConnectionPort : MonoBehaviour {
     private bool bIsConnected = false;
 
     private Transform parent;
-    private SphereCollider trigger;
+    private Collider trigger;
     private MeshRenderer portMeshRenderer;
 
     //Subscribe to Event: subscribes connection port to the mode manager to receive notice when the interaction mode changes
@@ -33,7 +33,7 @@ public class ConnectionPort : MonoBehaviour {
     // Use this for initialization
     void Start () {
         parent = transform.parent;
-        trigger = GetComponent<SphereCollider>();
+        trigger = GetComponent<Collider>();
         portMeshRenderer = GetComponent<MeshRenderer>();
         setActivePort(false);
 	}
@@ -59,6 +59,14 @@ public class ConnectionPort : MonoBehaviour {
         else
         {
             setActivePort(false);
+            if(newMode == InteractionMode.SpectatorMode)
+            {
+                portMeshRenderer.enabled = true;
+            }
+            else
+            {
+                portMeshRenderer.enabled = false;
+            }
         }
     }
 

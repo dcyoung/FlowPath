@@ -57,6 +57,11 @@ public static class ProspectiveConnectionManager{
     {
         if (currentConnectionState == ProspectiveConnectionState.Initiated)
         {
+            if(outputPort_from.transform.parent == specifiedPort.transform.parent)
+            {
+                MonoBehaviour.print("A node cannot take its own output as input.");
+                return;
+            }
             //MonoBehaviour.print("Registered an input port");
             inputPort_to = specifiedPort;
             currentConnectionState = ProspectiveConnectionState.Completed;
@@ -124,7 +129,6 @@ public static class ProspectiveConnectionManager{
 
     private static void CompleteConnectionProgress()
     {
-        MonoBehaviour.print("Connection Completed");
 
         Node n_from = outputPort_from.transform.parent.GetComponent<NodeComponent>().GetNode();
         Node n_to = inputPort_to.transform.parent.GetComponent<NodeComponent>().GetNode();
@@ -146,7 +150,6 @@ public static class ProspectiveConnectionManager{
         {
             if (ropeManager.GetComponent<RopeManager>() != null)
             {
-                MonoBehaviour.print("Calling create rope from ProspectiveConnectionManager");
                 ropeManager.GetComponent<RopeManager>().CreateRope(outputPort_from, inputPort_to);
             }
             else

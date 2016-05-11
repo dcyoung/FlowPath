@@ -33,7 +33,7 @@ class Rope_Tube : MonoBehaviour
 //	public float ropeDrag = 0.1f;
 //	public float ropeMass = 0.5f;
 	public float ropeWidth = 0.02f;
-	public float resolution = 4.2f;
+	public float resolution = 8.0f;
 	public float ropeDrag = 100.1f;
 	public float ropeMass = 0.5f;
 	public int radialSegments = 6;
@@ -54,6 +54,8 @@ class Rope_Tube : MonoBehaviour
 	public float lowTwistLimit = 0.0f;
 	public float highTwistLimit = 0.0f;
 	public float swing1Limit  = 20.0f;
+
+
 
 	void OnDrawGizmos()
 	{
@@ -91,7 +93,7 @@ class Rope_Tube : MonoBehaviour
 		}
         */
 	}
-
+    
 	void LateUpdate()
 	{
 		if(target)
@@ -100,8 +102,9 @@ class Rope_Tube : MonoBehaviour
 			if(rope)
 			{
 				line.SetPoints(segmentPos, ropeWidth, Color.white);
+                //line.SetPoints(segmentPos, ropeWidth, material.color);
 
-				line.enabled = true;
+                line.enabled = true;
 				segmentPos[0] = transform.position;
 
 				for(int s=1;s<segments;s++)
@@ -113,16 +116,17 @@ class Rope_Tube : MonoBehaviour
 	}
 
 
-
 	public void BuildRope()
 	{
 		tubeRenderer = new GameObject("TubeRenderer_" + gameObject.name);
-		line = tubeRenderer.AddComponent(typeof(TubeRenderer)) as TubeRenderer;
+        tubeRenderer.transform.SetParent(transform);//@DCYOUNG
+
+        line = tubeRenderer.AddComponent(typeof(TubeRenderer)) as TubeRenderer;
 		line.useMeshCollision = useMeshCollision;
 
 		// Find the amount of segments based on the distance and resolution
 		// Example: [resolution of 1.0 = 1 joint per unit of distance]
-		segments = Mathf.RoundToInt(Vector3.Distance(transform.position,target.position)*resolution);
+		segments = Mathf.Max(3, Mathf.RoundToInt(Vector3.Distance(transform.position,target.position)*resolution));
 
 		if(material) 
 		{
