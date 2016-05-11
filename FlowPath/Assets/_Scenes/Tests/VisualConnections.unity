@@ -3527,6 +3527,48 @@ Transform:
   - {fileID: 407543326}
   m_Father: {fileID: 531819952}
   m_RootOrder: 0
+--- !u!1 &1600753676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1600753678}
+  - 114: {fileID: 1600753677}
+  m_Layer: 0
+  m_Name: RopeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1600753677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1600753676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbfff6b3d0cfc49419b0609d93167bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  globalParent: {fileID: 1600753678}
+  ropeMat: {fileID: 2100000, guid: ee748f37b00e4af41a54a9169902d44c, type: 2}
+  ropeMat_active: {fileID: 2100000, guid: 51bbe202dad0b7e4bb0e5004be1f3c01, type: 2}
+--- !u!4 &1600753678
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1600753676}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.43999365, y: 0.23277813, z: -0.11405805}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
 --- !u!1 &1684578206
 GameObject:
   m_ObjectHideFlags: 0
@@ -3642,10 +3684,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   referencePrefabs:
-  - {fileID: 187149348}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 146149015}
+  - {fileID: 467409282}
+  - {fileID: 1294604947}
+  - {fileID: 187149348}
 --- !u!1001 &1759863750
 Prefab:
   m_ObjectHideFlags: 0

@@ -27,7 +27,7 @@ class Rope_Tube : MonoBehaviour
 {
 
 	public Transform target;
-	public Material material = ProspectiveConnectionManager.rope_material_default;
+    public Material material;
 //	public float ropeWidth = 0.5f;
 //	public float resolution = 0.5f;
 //	public float ropeDrag = 0.1f;
@@ -75,7 +75,12 @@ class Rope_Tube : MonoBehaviour
 	}
 
 	void Awake()
-	{target = ProspectiveConnectionManager.connection_target.transform;
+	{
+        /*
+        material = Resources.Load("lambert1", typeof(Material)) as Material;
+
+        target = transform.GetChild(0);
+        print(target);
 		if(target)
 		{
 			BuildRope();
@@ -84,6 +89,7 @@ class Rope_Tube : MonoBehaviour
 		{
 			Debug.LogError("You must have a gameobject attached to target: " + this.name,this);   
 		}
+        */
 	}
 
 	void LateUpdate()
@@ -108,7 +114,7 @@ class Rope_Tube : MonoBehaviour
 
 
 
-	void BuildRope()
+	public void BuildRope()
 	{
 		tubeRenderer = new GameObject("TubeRenderer_" + gameObject.name);
 		line = tubeRenderer.AddComponent(typeof(TubeRenderer)) as TubeRenderer;
@@ -117,6 +123,7 @@ class Rope_Tube : MonoBehaviour
 		// Find the amount of segments based on the distance and resolution
 		// Example: [resolution of 1.0 = 1 joint per unit of distance]
 		segments = Mathf.RoundToInt(Vector3.Distance(transform.position,target.position)*resolution);
+
 		if(material) 
 		{
 			material.SetTextureScale("_MainTex", new Vector2(1,segments+2));

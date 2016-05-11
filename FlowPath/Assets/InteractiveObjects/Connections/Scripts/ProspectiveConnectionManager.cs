@@ -21,13 +21,12 @@ public static class ProspectiveConnectionManager{
     public delegate void StateChangeAlert(ProspectiveConnectionState newState);
     public static event StateChangeAlert OnConnectingStateChange;
 
-
     private static GameObject outputPort_from = null;
     private static GameObject inputPort_to = null;
 
-	public static GameObject connection_target = null;
-	public static Material rope_material_default = null;
-    
+    public static Transform ropeManager = null;
+
+   
     //Callable method that will fire the event, alerting all subscribed listeners that the state has changed
     public static void ReportStateChange()
     {
@@ -133,32 +132,36 @@ public static class ProspectiveConnectionManager{
 
 
         //CircuitManager.PrintCircuitSummary();
-//		GameObject startCube = GameObject.Find ("Ref_AND_Gate (Rope Test 1)");
-//		GameObject endCube = GameObject.Find ("Ref_AND_Gate (Rope Test 2)");
-	
-		Material rope_mat = Resources.Load("lambert1", typeof(Material)) as Material;
-		rope_material_default = rope_mat;
 
-		GameObject startCube = outputPort_from;
+        //create a visual connection
+        CreateConnectionVisualization();
 
-		//Rope crazy
-		GameObject endCube = inputPort_to;
-
-		//Rope not crazy
-		//GameObject endCube = GameObject.Find("Cube4");
-
-		//Comment the next two lines for endpoints to be not the cubes, but the input/output spheres
-		startCube = startCube.transform.parent.gameObject;
-		endCube = endCube.transform.parent.gameObject;
-
-		connection_target = endCube;
-
-		endCube.transform.parent = startCube.transform;
-
-		startCube.AddComponent<Rope_Tube> ();
-		//startCube.GetComponent<Rope_Tube> ().target = endCube.transform;
-
+        //reset the prospective connection to LATENT
         ResetConnectionProgress();
     }
 
+    private static void CreateConnectionVisualization()
+    {
+        if (ropeManager != null)
+        {
+            if (ropeManager.GetComponent<RopeManager>() != null)
+            {
+                MonoBehaviour.print("Calling create rope from ProspectiveConnectionManager");
+                ropeManager.GetComponent<RopeManager>().CreateRope(outputPort_from, inputPort_to);
+            }
+            else
+            {
+                MonoBehaviour.print("The ropeManager transform does not have a RopeManager component");
+            }
+        }
+        else
+        {
+            MonoBehaviour.print("ropeManager is null");
+        }
+    }
+
+    public static void SetRopeManager(Transform newRopeManager)
+    {
+        ropeManager = newRopeManager;
+    }
 }
