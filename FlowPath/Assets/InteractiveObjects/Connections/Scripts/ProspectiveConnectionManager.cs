@@ -135,6 +135,7 @@ public static class ProspectiveConnectionManager{
         //CircuitManager.PrintCircuitSummary();
 //		GameObject startCube = GameObject.Find ("Ref_AND_Gate (Rope Test 1)");
 //		GameObject endCube = GameObject.Find ("Ref_AND_Gate (Rope Test 2)");
+	
 		Material rope_mat = Resources.Load("lambert1", typeof(Material)) as Material;
 		rope_material_default = rope_mat;
 
@@ -145,6 +146,10 @@ public static class ProspectiveConnectionManager{
 
 		//Rope not crazy
 		//GameObject endCube = GameObject.Find("Cube4");
+
+		//startCube = startCube.transform.parent.gameObject;
+		//endCube = endCube.transform.parent.gameObject;
+
 		connection_target = endCube;
 
 		endCube.transform.parent = startCube.transform;
